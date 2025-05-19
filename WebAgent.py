@@ -2,7 +2,7 @@ from google import genai
 import json
 import time
 from pathlib import Path
-
+from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 import re
 import os
@@ -16,7 +16,8 @@ from typing import List, Dict, Any, Optional
 from selenium.webdriver.support.ui import Select
 
 # API configuration
-GEMINI_API_KEY = "AIzaSyDKcjYKwk2F506Bk1DnmgmnsJbl9wgvW0c"
+load_dotenv()
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', None)
 VISION_MODEL_NAME = "gemini-2.0-flash"
 TEXT_MODEL_NAME = "gemini-2.0-flash"
 TARGET_URL = "https://www.imdb.com/"
@@ -882,7 +883,7 @@ class WebAgent:
             from urllib.parse import urlparse
             parsed_url = urlparse(url)
             domain = parsed_url.netloc
-            # Extract main domain (e.g., 'example.com' from 'subdomain.example.com')
+            # Extract main domain
             parts = domain.split('.')
             if len(parts) > 2:
                 # This handles cases like 'www.example.com'
